@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Menu\CreateFormRequest;
 use App\Http\Services\Menu\MenuService;
+use App\Models\Menu;
 
 class MenuController extends Controller
 {
@@ -24,6 +25,7 @@ class MenuController extends Controller
 
     public function add(CreateFormRequest $request)
     {
+
         $result = $this->menuService->create($request);
 
         return redirect()->back();
@@ -54,6 +56,26 @@ class MenuController extends Controller
                 'error' => true,
                 'message' => 'Menu has not been deleted',
             ]);
+        }
+    }
+
+    public function update(Menu $menu){
+
+        return view('admin.menu.update', [
+            'title' => 'Update Item',
+            'menu' => $menu,
+        ]);
+    }
+
+    public function postUpdate(Menu $menu, CreateFormRequest $request)
+    {
+        $result =  $this->menuService->postUpdate($request, $menu);
+
+        if($result) {
+            return redirect()->route('menu')->with('success', 'Update Successful');
+        }
+        else {
+            return redirect()->back()->with('error', 'Update Failed');
         }
     }
 }

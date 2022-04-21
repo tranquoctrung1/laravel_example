@@ -18,7 +18,7 @@ class MenuService
                 'description' =>(string) $request->input('description'),
                 'content' =>(string) $request->input('content'),
                 'slug' => Str::slug($request->input('name'), '-'),
-                'active' =>(int) $request->input('active'),
+                'active' =>(string) $request->input('active') == "on" ? 1: 0,
             ]);
 
             Session::flash('success', 'Menu has been added');
@@ -48,6 +48,18 @@ class MenuService
         else {
             return false;
         }
+    }
+
+    public function postUpdate($request, $menu)
+    {
+        $menu->name = (string) $request->input('name');
+        $menu->parent_id = (int) $request->input('parent_id');
+        $menu->description = (string) $request->input('description');
+        $menu->content = (string) $request->input('content');
+        $menu->active = (string) $request->input('active') == "on" ? 1: 0;
+        $menu->save();
+
+        return true;
     }
 
 }

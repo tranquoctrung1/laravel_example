@@ -30,8 +30,10 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/main', [MainController::class, 'index'])->name('admin');
 
         Route::prefix('/menu')->group(function() {
-            Route::get('/', [MenuController::class, 'get']);
+            Route::get('/', [MenuController::class, 'get'])->name('menu');
             Route::get('/add', [MenuController::class, 'create']);
+            Route::get('/update/{menu}', [MenuController::class, 'update']);
+            Route::post('/update/{menu}', [MenuController::class, 'postUpdate']);
             Route::post('/add/post', [MenuController::class, 'add']);
             Route::delete('/delete', [MenuController::class, 'delete']);
         });

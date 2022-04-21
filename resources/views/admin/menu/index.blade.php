@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+    <div>
+        @include('admin.layout.errors')
+    </div>
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
