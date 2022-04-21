@@ -32,4 +32,22 @@ class MenuService
         return true;
     }
 
+    public function getAll(){
+        return Menu::orderbyDesc('id')->paginate(20);
+    }
+
+    public function delete($request)
+    {
+        $id = $request->input('id');
+
+        $menu = Menu::where('id', $id)->first();
+        if($menu)
+        {
+            return Menu::where('id', $id)->delete();
+        }
+        else {
+            return false;
+        }
+    }
+
 }

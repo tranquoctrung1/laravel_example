@@ -6,6 +6,6 @@
 </head>
 <body>
     @yield('content')
-@include('admin.layout.script')
+    @include('admin.layout.script')
 </body>
 </html>
